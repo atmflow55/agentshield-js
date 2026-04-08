@@ -1,0 +1,17 @@
+{
+  "name": "agentshield-js",
+  "version": "1.2.0",
+  "description": "Official SDK for the AgentShield security protocol — real-time smart contract security for autonomous AI agents",
+  "main": "index.js",
+  "keywords": ["agentshield", "ai-agent", "smart-contract", "security", "web3", "defi", "honeypot", "x402"],
+  "author": "AgentShield",
+  "license": "MIT",
+  "homepage": "https://agentshield.win",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agentshield/agentshield-js"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
