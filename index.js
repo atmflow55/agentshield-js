@@ -145,6 +145,109 @@ class AgentShield {
     }
     return result;
   }
+
+  /**
+   * Batch verify multiple contracts at once (paid feature).
+   * @param {string[]} contracts - Array of contract addresses
+   * @param {string|number} chain - Chain ID
+   * @returns {Promise<Object>}
+   */
+  async verifyBatch(contracts, chain = 1) {
+    return this._request("/verify-batch", {
+      method: "POST",
+      body: JSON.stringify({ contracts, chain: String(chain) }),
+    });
+  }
+
+  /**
+   * Register webhook for contract change alerts (Pro+ only).
+   * @param {Object} opts
+   * @param {string} opts.contract - Contract to watch
+   * @param {string} opts.callback_url - URL to POST alerts to
+   * @param {string} [opts.chain='ethereum']
+   * @param {string[]} [opts.events] - Event types to watch
+   * @returns {Promise<Object>}
+   */
+  async webhook({ contract, callback_url, chain = "ethereum", events }) {
+    return this._request("/webhook", {
+      method: "POST",
+      body: JSON.stringify({ contract, callback_url, chain, events }),
+    });
+  }
+
+  /**
+   * Get usage dashboard for your API key.
+   * @returns {Promise<Object>}
+   */
+  async dashboard() {
+    return this._request("/dashboard");
+  }
+
+  /**
+   * Create or redeem a referral code.
+   * @param {'create'|'redeem'} action
+   * @param {string} [code] - Required for redeem
+   * @returns {Promise<Object>}
+   */
+  async referral(action, code) {
+    return this._request("/referral", {
+      method: "POST",
+      body: JSON.stringify({ action, code }),
+    });
+  }
+
+  /**
+   * Report a malicious contract to the community.
+   * @param {Object} opts
+   * @param {string} opts.contract - Contract address
+   * @param {string} opts.reason - Why it's malicious
+   * @param {string} [opts.evidence] - Supporting evidence
+   * @param {string} [opts.chain='ethereum']
+   * @returns {Promise<Object>}
+   */
+  async report({ contract, reason, evidence, chain = "ethereum" }) {
+    return this._request("/report", {
+      method: "POST",
+      body: JSON.stringify({ contract, reason, evidence, chain }),
+    });
+  }
+
+  /**
+   * Get agent reputation score.
+   * @param {string} [agent] - Agent key prefix (defaults to your key)
+   * @returns {Promise<Object>}
+   */
+  async reputation(agent) {
+    const params = agent ? `?agent=${agent}` : "";
+    return this._request(`/reputation${params}`);
+  }
+
+  /**
+   * Check for proxy/ownership changes on a contract (Pro+ only).
+   * @param {string} contract
+   * @param {string} [chain='ethereum']
+   * @returns {Promise<Object>}
+   */
+  async contractDiff(contract, chain = "ethereum") {
+    const params = new URLSearchParams({ contract, chain });
+    return this._request(`/contract-diff?${params}`);
+  }
+
+  /**
+   * Get community leaderboard.
+   * @returns {Promise<Object>}
+   */
+  async leaderboard() {
+    return this._request("/leaderboard");
+  }
+
+  /**
+   * Get integration guides.
+   * @returns {Promise<Object>}
+   */
+  async integrations() {
+    return this._request("/integrations");
+  }
 }
 
 module.exports = AgentShield;
