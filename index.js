@@ -248,6 +248,38 @@ class AgentShield {
   async integrations() {
     return this._request("/integrations");
   }
+
+  /**
+   * View the active giveaway and past winners.
+   * @returns {Promise<Object>}
+   */
+  async giveaway() {
+    return this._request("/giveaway");
+  }
+
+  /**
+   * Enter the active giveaway (paid subscribers only).
+   * @param {string} [agentName] - Display name for leaderboard
+   * @returns {Promise<Object>}
+   */
+  async giveawayEnter(agentName) {
+    return this._request("/giveaway/enter", {
+      method: "POST",
+      body: JSON.stringify({ agent_name: agentName }),
+    });
+  }
+
+  /**
+   * Set your agent display name on the leaderboard.
+   * @param {string} name - Display name (max 32 chars)
+   * @returns {Promise<Object>}
+   */
+  async setAgentName(name) {
+    return this._request("/agent-name", {
+      method: "POST",
+      body: JSON.stringify({ name }),
+    });
+  }
 }
 
 module.exports = AgentShield;

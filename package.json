@@ -1,6 +1,6 @@
 {
   "name": "agentshield-js",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Official SDK for the AgentShield security protocol — real-time smart contract security for autonomous AI agents",
   "main": "index.js",
   "keywords": ["agentshield", "ai-agent", "smart-contract", "security", "web3", "defi", "honeypot", "x402"],
